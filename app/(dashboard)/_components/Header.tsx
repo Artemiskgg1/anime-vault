@@ -1,16 +1,29 @@
 import Image from "next/image";
+import { UserButton } from "@clerk/nextjs";
 
 function Header() {
   return (
-    <header className="bg-hero bg-center h-[30rem] bg-cover bg-no-repeat sm:p-16 py-16 px-8 flex justify-center lg:items-center max-lg:flex-col w-full sm:gap-16 gap-0 relative">
-      <div className="absolute inset-0">
-        <Image
-          src="/anime-toroto.jpg"
-          alt="anime"
-          layout="fill"
-          objectFit="cover"
-          quality={100}
-          className="opacity-50"
+    <header className="relative w-full h-[60vh] bg-cover bg-no-repeat bg-center flex items-start justify-start p-4">
+      <Image
+        src="/anime-toroto.jpg"
+        alt="anime"
+        layout="fill"
+        objectFit="cover"
+        quality={100}
+        className="z-0"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
+      <div className="relative z-10">
+        <UserButton
+          afterSignOutUrl="/"
+          appearance={{
+            elements: {
+              avatarBox: {
+                height: 40,
+                width: 40,
+              },
+            },
+          }}
         />
       </div>
     </header>
