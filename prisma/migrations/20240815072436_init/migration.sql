@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "List" ALTER COLUMN "groupId" DROP NOT NULL;

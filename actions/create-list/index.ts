@@ -1,20 +1,24 @@
-import { auth } from "@clerk/nextjs/server";
-import { InputType, ReturnType } from "./types";
 import { db } from "@/lib/db";
-import { revalidatePath } from "next/cache";
-import { createSafeAction } from "@/lib/create-safe-action";
-import { CreateList } from "./schema";
+import { CreateList, InputType } from "./schema";
+import { List } from "@prisma/client";
+import { ActionState } from "@/lib/create-safe-action";
 
-const handler = async (data: InputType): Promise<ReturnType> => {
-  const { userId } = auth();
-  if (!userId) {
-    return { error: "Unauthorized" };
+export const createList = async (
+  input: InputType
+): Promise<ActionState<InputType, List>> => {
+  try {
+    const { title, fileUrl, groupId } = input;
+
+    const list = await db.list.create({
+      data: {
+        title,
+        fileUrl,
+        ...(groupId ? { group: { connect: { id: groupId } } } : {}),
+      },
+    });
+
+    return { data: list };
+  } catch (error) {
+    return { error: "Failed to create list." };
   }
-  const { title, fileUrl } = data;
-  let list;
-
-  revalidatePath(`/anime-list/${userId}`);
-  return { data: list };
 };
-
-export const createList = createSafeAction(CreateList, handler);

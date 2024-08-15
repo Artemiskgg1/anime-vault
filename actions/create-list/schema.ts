@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 export const CreateList = z.object({
   title: z
     .string({
@@ -9,4 +10,7 @@ export const CreateList = z.object({
       message: "Title must be at least 3 characters long",
     }),
   fileUrl: z.string().url(),
+  groupId: z.string().optional(),
 });
+
+export type InputType = z.infer<typeof CreateList>;
