@@ -1,24 +1,46 @@
+"use server";
+import { auth } from "@clerk/nextjs/server";
+import { CreateList } from "./schema";
 import { db } from "@/lib/db";
-import { CreateList, InputType } from "./schema";
-import { List } from "@prisma/client";
-import { ActionState } from "@/lib/create-safe-action";
+import { revalidatePath } from "next/cache";
+import { createSafeAction } from "@/lib/create-safe-action";
+import { z } from "zod";
 
-export const createList = async (
-  input: InputType
-): Promise<ActionState<InputType, List>> => {
+const handler = async (data: z.infer<typeof CreateList>) => {
+  const { userId } = auth();
+  if (!userId) {
+    return { error: "Unauthorized" };
+  }
+
+  const { title, fileUrl, groupId } = data;
   try {
-    const { title, fileUrl, groupId } = input;
+    // If there's a groupId, check if the group exists
+    if (groupId) {
+      const group = await db.group.findUnique({
+        where: { id: groupId },
+      });
+      if (!group) {
+        return { error: "Group not found" };
+      }
+    }
 
+    // Create the list
     const list = await db.list.create({
       data: {
         title,
         fileUrl,
-        ...(groupId ? { group: { connect: { id: groupId } } } : {}),
+        groupId,
       },
     });
 
+    // Optionally revalidate the path
+    revalidatePath(`/anime-list}`);
+
     return { data: list };
   } catch (error) {
-    return { error: "Failed to create list." };
+    console.error("Error creating list:", error);
+    return { error: "Failed to create list" };
   }
 };
+
+export const createList = createSafeAction(CreateList, handler);
