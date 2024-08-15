@@ -30,7 +30,7 @@ export default function RootLayout({
     >
       <html lang="en">
         <body>
-          <main className=" bg-[#0a0a0b]">{children}</main>
+          <main className=" bg-black">{children}</main>
           <Toaster richColors />
         </body>
       </html>

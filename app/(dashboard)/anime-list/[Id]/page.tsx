@@ -25,10 +25,6 @@ import { z } from "zod";
 import { UploadButton } from "@/lib/uploadthing";
 import { createList } from "@/actions/create-list";
 import { CreateList } from "@/actions/create-list/schema";
-import AnimeCard from "../../_components/AnimeCard";
-import Header from "../../_components/Header";
-import Intro from "../../_components/Intro";
-
 const Page = () => {
   const [open, setOpen] = useState(false); // State to control the dialog visibility
   const form = useForm<z.infer<typeof CreateList>>({
@@ -129,14 +125,6 @@ const Page = () => {
           </Form>
         </DialogContent>
       </Dialog>
-      <Header />
-      <Intro />
-
-      {/* Display Anime Cards */}
-      <div className="p-4">
-        <AnimeCard />
-        <AnimeCard />
-      </div>
     </div>
   );
 };

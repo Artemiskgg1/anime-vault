@@ -30,6 +30,7 @@ const handler = async (data: z.infer<typeof CreateList>) => {
         title,
         fileUrl,
         groupId,
+        userId,
       },
     });
 

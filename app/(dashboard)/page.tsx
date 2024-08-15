@@ -1,10 +1,12 @@
-import { ImagesSliderDemo } from "@/components/Hero";
-import React from "react";
+import Header from "./_components/Header";
+import Intro from "./_components/Intro";
+import AnimeCard from "./_components/AnimeCard";
 
 const page = () => {
   return (
     <div>
-      <ImagesSliderDemo />
+      <Header />
+      <Intro />
     </div>
   );
 };

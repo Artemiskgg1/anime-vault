@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Group {
+model Group {       
   id        String   @id @default(uuid())
   title     String
   fileUrl   String   @unique
@@ -17,6 +17,8 @@ model Group {
 }
 
 model List {
+  
+  userId    String 
   id        String   @id @default(uuid())
   title     String
   fileUrl   String   @unique
