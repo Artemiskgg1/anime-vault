@@ -29,7 +29,7 @@ export default function RootLayout({
     >
       <html lang="en">
         <body>
-          <main>{children}</main>
+          <main className=" bg-[#0a0a0b]">{children}</main>
         </body>
       </html>
     </ClerkProvider>

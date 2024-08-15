@@ -1,5 +1,7 @@
 import { SignUp } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 export default function Page() {
-  return <SignUp fallbackRedirectUrl="/anime-list" />;
+  const { userId } = auth();
+  return <SignUp fallbackRedirectUrl={`/anime-list/${userId}`} />;
 }
