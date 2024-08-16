@@ -1,48 +1,28 @@
 import Image from "next/image";
 
-function AnimeCard() {
+function AnimeCard({
+  title,
+  imageSrc,
+  description,
+}: {
+  title: string;
+  imageSrc: string;
+  description: string;
+}) {
   return (
-    <div className="max-w-sm rounded relative w-full">
-      <div className="relative w-full h-[37vh]">
-        <Image
-          src="/anime-toroto.jpg"
-          alt="anime"
-          fill
-          className="rounded-xl"
-        />
+    <div className="relative bg-opacity-80 backdrop-blur-[2px] rounded-lg overflow-hidden shadow-lg z-50">
+      <Image
+        width={500}
+        height={250}
+        src={imageSrc}
+        alt={title}
+        className="w-full h-64 object-cover"
+      />
+      <div className="p-4 bg-black/30">
+        <h3 className="text-xl font-semibold text-white">{title}</h3>
+        <p className="mt-2 text-sm text-gray-300">{description}</p>
       </div>
-      <div className="py-4 flex flex-col gap-3">
-        <div className="flex justify-between items-center gap-1">
-          <h2 className="font-bold text-white text-xl line-clamp-1 w-full">
-            Random Anime
-          </h2>
-          <div className="py-1 px-2 bg-[#161921] rounded-sm">
-            <p className="text-white text-sm font-bold capitalize">Fantasy</p>
-          </div>
-        </div>
-        <div className="flex gap-4 items-center">
-          <div className="flex flex-row gap-2 items-center">
-            <Image
-              src="/episodes.svg"
-              alt="episodes"
-              width={20}
-              height={20}
-              className="object-contain"
-            />
-            <p className="text-base text-white font-bold">somethhhing</p>
-          </div>
-          <div className="flex flex-row gap-2 items-center">
-            <Image
-              src="/star.svg"
-              alt="star"
-              width={18}
-              height={18}
-              className="object-contain"
-            />
-            <p className="text-base font-bold text-[#FFAD49]">10</p>
-          </div>
-        </div>
-      </div>
+      <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-transparent to-[#ff8b8b]" />
     </div>
   );
 }

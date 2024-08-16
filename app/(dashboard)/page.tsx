@@ -6,7 +6,7 @@ const page = () => {
   return (
     <div>
       <Header />
-      <Intro />
+      {/* <Intro /> */}
     </div>
   );
 };
