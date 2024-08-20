@@ -14,7 +14,6 @@ const handler = async (data: z.infer<typeof CreateList>) => {
 
   const { title, fileUrl, groupId } = data;
   try {
-    // If there's a groupId, check if the group exists
     if (groupId) {
       const group = await db.group.findUnique({
         where: { id: groupId },
@@ -23,8 +22,6 @@ const handler = async (data: z.infer<typeof CreateList>) => {
         return { error: "Group not found" };
       }
     }
-
-    // Create the list
     const list = await db.list.create({
       data: {
         title,
@@ -33,8 +30,6 @@ const handler = async (data: z.infer<typeof CreateList>) => {
         userId,
       },
     });
-
-    // Optionally revalidate the path
     revalidatePath(`/anime-list}`);
 
     return { data: list };
