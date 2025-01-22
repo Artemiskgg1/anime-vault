@@ -1,6 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 const isProtectedRoute = createRouteMatcher(["/anime-list(.*)"]);
+
 export default clerkMiddleware((auth, req, event) => {
   if (!auth().userId && isProtectedRoute(req)) {
     return auth().redirectToSignIn({ returnBackUrl: req.url });

@@ -1,12 +1,9 @@
-import Header from "./_components/Header";
-import Intro from "./_components/Intro";
-import AnimeCard from "./_components/AnimeCard";
+import { Hero } from "@/components/Hero";
 
 const page = () => {
   return (
     <div>
-      <Header />
-      {/* <Intro /> */}
+      <Hero />
     </div>
   );
 };
