@@ -14,10 +14,14 @@ const Nav = () => {
   ];
 
   return (
-    <nav className="flex items-center justify-between w-full px-6 py-4 fixed top-0 z-10 bg-transparent text-[#d5d5d5]">
-      <div className="flex space-x-16">
+    <nav className="flex items-center justify-between z-20 w-full px-6 py-4 fixed top-0 bg-black opacity-90 text-[#d5d5d5] h-16 ">
+      <div className="flex space-x-16 text-md">
         {navLinks.map((link, index) => (
-          <Link key={index} href={link.href} className="hover:underline">
+          <Link
+            key={index}
+            href={link.href}
+            className="hover:underline text-white"
+          >
             {link.text}
           </Link>
         ))}
