@@ -1,4 +1,5 @@
 "use server";
+
 import { auth } from "@clerk/nextjs/server";
 import { CreateList } from "./schema";
 import { db } from "@/lib/db";
@@ -13,24 +14,19 @@ const handler = async (data: z.infer<typeof CreateList>) => {
   }
 
   const { title, fileUrl, groupId } = data;
+
   try {
-    if (groupId) {
-      const group = await db.group.findUnique({
-        where: { id: groupId },
-      });
-      if (!group) {
-        return { error: "Group not found" };
-      }
-    }
     const list = await db.list.create({
       data: {
         title,
         fileUrl,
-        groupId,
         userId,
+        groupId,
       },
     });
-    revalidatePath(`/anime-list}`);
+
+    revalidatePath(`/anime-list`);
+    console.log("Saved to database:", list);
 
     return { data: list };
   } catch (error) {

@@ -7,21 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Group {       
+model Group {
   id        String   @id @default(uuid())
   title     String
-  fileUrl   String   @unique
+  fileUrl   String
   lists     List[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model List {
-  
-  userId    String 
   id        String   @id @default(uuid())
   title     String
-  fileUrl   String   @unique
+  fileUrl   String
+  userId    String
   groupId   String?
   group     Group?   @relation(fields: [groupId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
