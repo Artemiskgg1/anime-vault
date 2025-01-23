@@ -1,11 +1,5 @@
 "use client";
-import React, {
-  useEffect,
-  useRef,
-  useState,
-  createContext,
-  useContext,
-} from "react";
+import React, { useEffect, useState } from "react";
 import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -124,7 +118,7 @@ export const Card = ({
   return (
     <motion.div
       layoutId={layout ? `card-${card.title}` : undefined}
-      className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-64 w-48 md:h-[30rem] md:w-72 overflow-hidden flex flex-col items-start justify-start relative z-10"
+      className="rounded-3xl bg-gray-100 dark:bg-black h-64 w-48 md:h-[30rem] md:w-72 overflow-hidden flex flex-col items-start justify-start relative z-10"
     >
       <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
       <div className="relative z-40 p-8">

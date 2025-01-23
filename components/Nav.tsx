@@ -11,7 +11,7 @@ const Nav = () => {
     { text: "FAQ", href: "/faq" },
     { text: "Contact Us", href: "/contact" },
     { text: "Discord", href: "/discord" },
-    { text: "Twitter", href: "/twitter" },
+    { text: "Log In", href: "/sign-in" },
   ];
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,7 +20,7 @@ const Nav = () => {
 
   return (
     <nav className="fixed top-0 w-full z-20 bg-black opacity-90 text-[#d5d5d5]">
-      <div className="flex items-center justify-between px-6 py-4 h-16">
+      <div className="flex items-center justify-between px-6 py-4 h-16 mx-10">
         <div>
           <Logo />
         </div>
@@ -29,7 +29,7 @@ const Nav = () => {
             <Link
               key={index}
               href={link.href}
-              className="hover:underline text-white"
+              className="hover:underline text-white font-semibold"
             >
               {link.text}
             </Link>
