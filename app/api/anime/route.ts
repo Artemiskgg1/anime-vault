@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
 export async function GET() {
-  const { userId } = auth(); // Extract the user ID from Clerk's `auth()` function
+  const { userId } = auth();
 
   if (!userId) {
     return NextResponse.json(
@@ -13,7 +13,6 @@ export async function GET() {
   }
 
   try {
-    // Query the database for the user's anime list
     const userAnimeList = await db.list.findMany({
       where: { userId },
       orderBy: { createdAt: "desc" },

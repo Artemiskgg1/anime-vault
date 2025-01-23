@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useUser } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { createList } from "@/actions/create-list";
+import TopNav from "../../_components/TopNav";
 
 const AnimeListPage: React.FC = () => {
   const { user } = useUser();
@@ -75,7 +76,9 @@ const AnimeListPage: React.FC = () => {
 
   return (
     <div className="px-4 py-6 bg-black text-white min-h-screen">
+      <TopNav />
       <h1 className="text-3xl font-bold mb-6 text-center">Your Anime Vault</h1>
+      <UserButton />
       <div className="relative w-full max-w-md mx-auto mb-8">
         <input
           type="text"
