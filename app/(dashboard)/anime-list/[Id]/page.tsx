@@ -4,13 +4,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const AnimeSearch: React.FC = () => {
-  const [query, setQuery] = useState<string>(""); // User input
-  const [suggestions, setSuggestions] = useState<string[]>([]); // Suggested anime
+  const [query, setQuery] = useState<string>("");
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Function to fetch suggestions
   const fetchSuggestions = async (searchTerm: string) => {
-    if (!searchTerm) return; // Avoid unnecessary API calls
+    if (!searchTerm) return;
     setLoading(true);
 
     try {
@@ -25,14 +24,12 @@ const AnimeSearch: React.FC = () => {
       setLoading(false);
     }
   };
-
-  // Debounced Search Function
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
       if (query) fetchSuggestions(query);
-    }, 300); // Adjust debounce delay as needed
+    }, 300);
 
-    return () => clearTimeout(debounceTimer); // Cleanup timer
+    return () => clearTimeout(debounceTimer);
   }, [query]);
 
   return (
