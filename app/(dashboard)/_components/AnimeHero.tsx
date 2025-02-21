@@ -1,8 +1,8 @@
-// Parent Component to combine Lists and Content
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { createList } from "@/actions/create-list";
+import { deleteList } from "@/actions/delete-list";
 import Lists from "./Lists";
 import Content from "./Content";
 
@@ -35,6 +35,28 @@ const AnimeHero = () => {
     }
   };
 
+  const handleDeleteAnime = async (animeId: string) => {
+    if (!user) {
+      alert("You must be logged in to delete anime.");
+      return;
+    }
+
+    try {
+      const result = await deleteList({ id: animeId });
+
+      if (result.error) {
+        console.error("Error deleting anime:", result.error);
+        alert("Failed to delete anime.");
+      } else {
+        setUserAnimeList((prev) =>
+          prev.filter((anime) => anime.id !== animeId)
+        );
+      }
+    } catch (error) {
+      console.error("Error handling delete anime:", error);
+    }
+  };
+
   const fetchUserAnimeList = async () => {
     try {
       const response = await axios.get(`/api/anime`);
@@ -55,6 +77,7 @@ const AnimeHero = () => {
         userAnimeList={userAnimeList}
         selectedAnime={selectedAnime}
         setSelectedAnime={setSelectedAnime}
+        handleDeleteAnime={handleDeleteAnime}
       />
     </div>
   );

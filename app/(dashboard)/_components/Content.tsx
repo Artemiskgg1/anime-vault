@@ -4,10 +4,12 @@ const Content = ({
   userAnimeList,
   selectedAnime,
   setSelectedAnime,
+  handleDeleteAnime,
 }: {
   userAnimeList: any[];
   selectedAnime: any;
   setSelectedAnime: (anime: any) => void;
+  handleDeleteAnime: (id: string) => void;
 }) => {
   return (
     <div className="flex h-[65vh] bg-gray-950 rounded-xl overflow-hidden shadow-lg">
@@ -32,6 +34,12 @@ const Content = ({
                 className="w-14 h-14 object-cover rounded-md"
               />
               <span className="text-sm font-medium">{anime.title}</span>
+              <button
+                onClick={() => handleDeleteAnime(anime.id)}
+                className="px-3 py-1 text-sm bg-red-500 hover:bg-red-600 rounded-md"
+              >
+                Delete
+              </button>
             </li>
           ))}
         </ul>
