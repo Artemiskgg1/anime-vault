@@ -2,13 +2,6 @@
 import React from "react";
 import { Carousel, Card } from "@/components/ui/cards-carousel";
 
-// Import images
-import spyxfamily from "@/public/images/spyxfamily.jpg";
-import animeToroto from "@/public/images/anime-toroto.jpg";
-import anime1 from "@/public/images/anime1.gif";
-import aot from "@/public/images/aot.jpg";
-import laurenAndKieran from "@/public/images/LaurenandKieran.jpg";
-
 export function CardsCarousel() {
   const cards = data.map((card, index) => (
     <Card key={index} card={card} layout={true} />
@@ -25,26 +18,26 @@ const data = [
   {
     category: "Shrine of Favorites ⛩️",
     title: "Create your Anime Shrine.",
-    src: spyxfamily.src, // ✅ Use .src to get the image URL
+    src: "/images/spyxfamily.jpg",
   },
   {
     category: "Bento Box Reviews 🍱",
     title: "Add reviews to animes you've watched",
-    src: animeToroto.src,
+    src: "/images/anime-toroto.jpg",
   },
   {
     category: "Seasonal Anime Recommendations 🍁",
     title: "Experience anime just like the changing seasons in Japan!",
-    src: anime1.src,
+    src: "/images/anime1.gif",
   },
   {
     category: "Community Scroll 📜",
     title: "Scroll through a community feed.",
-    src: aot.src,
+    src: "/images/aot.jpg",
   },
   {
     category: "Webtoon World 🌏",
     title: "Add the latest and greatest webtoons.",
-    src: laurenAndKieran.src,
+    src: "/images/LaurenandKieran.jpg",
   },
 ];
