@@ -28,10 +28,11 @@ export function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, delay: 0.4 }}
         >
-          Your ultimate anime watchlist! Keep track of all the shows you've
-          watched and Explore your anime journey with a cute and immersive
-          Japanese vibe! Join our community and keep your anime memories alive.
+          {
+            "Your ultimate anime watchlist! Keep track of all the shows you've watched and explore your anime journey with a cute and immersive Japanese vibe! Join our community and keep your anime memories alive."
+          }
         </motion.p>
+
         <div className="relative overflow-hidden w-full max-w-screen-xl mx-auto mt-6 h-[50%]">
           <CardsCarousel />
           <div className="absolute bottom-0 left-0 w-full h-[20%] bg-gradient-to-t from-[black] to-transparent"></div>
