@@ -71,16 +71,18 @@ const AnimeHero = () => {
   }, [user]);
 
   return (
-    <div className=" flex flex-col items-center justify-center">
+    <div className="bg-black flex flex-col items-center justify-center">
       <div className="mb-10">
         <Lists handleAddAnime={handleAddAnime} />
       </div>
-      <Content
-        userAnimeList={userAnimeList}
-        selectedAnime={selectedAnime}
-        setSelectedAnime={setSelectedAnime}
-        handleDeleteAnime={handleDeleteAnime}
-      />
+      <div className="flex ">
+        <Content
+          userAnimeList={userAnimeList}
+          selectedAnime={selectedAnime}
+          setSelectedAnime={setSelectedAnime}
+          handleDeleteAnime={handleDeleteAnime}
+        />
+      </div>
     </div>
   );
 };

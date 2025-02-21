@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 
 const Content = ({
   userAnimeList,
@@ -11,66 +12,117 @@ const Content = ({
   setSelectedAnime: (anime: any) => void;
   handleDeleteAnime: (id: string) => void;
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const [direction, setDirection] = useState<
+    "top" | "bottom" | "left" | "right" | string
+  >("left");
+
+  const [hoveredAnime, setHoveredAnime] = useState<string | null>(null);
+
+  const handleMouseEnter = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    animeId: string
+  ) => {
+    setHoveredAnime(animeId); // Set hovered anime ID
+    if (!ref.current) return;
+
+    const direction = getDirection(event, ref.current);
+    setDirection(["top", "right", "bottom", "left"][direction] || "left");
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredAnime(null); // Reset when leaving
+  };
+
+  const getDirection = (
+    ev: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    obj: HTMLElement
+  ) => {
+    const { width: w, height: h, left, top } = obj.getBoundingClientRect();
+    const x = ev.clientX - left - (w / 2) * (w > h ? h / w : 1);
+    const y = ev.clientY - top - (h / 2) * (h > w ? w / h : 1);
+    return Math.round(Math.atan2(y, x) / 1.57079633 + 5) % 4;
+  };
+
   return (
-    <div className="flex h-[65vh] bg-gray-950 rounded-xl overflow-hidden shadow-lg">
-      <div className="w-1/3 p-5 overflow-y-auto h-full bg-gray-900 border-r border-gray-800">
-        <h2 className="text-2xl font-semibold mb-4 text-yellow-400">
-          Your Anime List
-        </h2>
-        <ul className="space-y-3">
-          {userAnimeList.map((anime, index) => (
-            <li
-              key={index}
-              className={`p-3 rounded-lg cursor-pointer hover:bg-gray-700 text-white shadow-md transition-all duration-300 flex items-center space-x-3 ${
-                selectedAnime?.title === anime.title
-                  ? "border border-yellow-400"
-                  : ""
-              }`}
-              onClick={() => setSelectedAnime(anime)}
+    <div className="bg-black grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 place-items-center">
+      {userAnimeList.map((anime, index) => (
+        <motion.div
+          key={anime.id || index}
+          onClick={() => setSelectedAnime(anime)}
+          onMouseEnter={(event) => handleMouseEnter(event, anime.id)}
+          onMouseLeave={handleMouseLeave}
+          ref={ref}
+          className={`
+            relative md:h-96 w-60 h-60 md:w-96 bg-transparent rounded-lg overflow-hidden group/card
+            ${
+              selectedAnime?.title === anime.title
+                ? "border border-zinc-400"
+                : ""
+            }
+          `}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              className="relative h-full w-full"
+              initial="initial"
+              whileHover={direction}
+              exit="exit"
             >
-              <img
-                src={anime.fileUrl}
-                alt={anime.title}
-                className="w-14 h-14 object-cover rounded-md"
-              />
-              <span className="text-sm font-medium">{anime.title}</span>
-              <button
-                onClick={() => handleDeleteAnime(anime.id)}
-                className="px-3 py-1 text-sm bg-red-500 hover:bg-red-600 rounded-md"
+              {/* Apply the dark overlay only to non-hovered cards */}
+              {hoveredAnime && hoveredAnime !== anime.id && (
+                <motion.div className="absolute inset-0 w-full h-full bg-black/40 z-10 transition duration-500" />
+              )}
+
+              {/* Image Container */}
+              <motion.div
+                variants={variants}
+                className="h-full w-full relative bg-gray-50 dark:bg-black"
+                transition={{
+                  duration: 0.2,
+                  ease: "easeOut",
+                }}
               >
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="flex-1 bg-gray-800 p-6 flex flex-col items-center justify-center">
-        {selectedAnime ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            <img
-              src={selectedAnime.fileUrl}
-              alt={selectedAnime.title}
-              className="w-full h-64 object-cover rounded-lg mb-4 shadow-lg"
-            />
-            <h2 className="text-4xl font-bold mb-4 text-yellow-400">
-              {selectedAnime.title}
-            </h2>
-            <p className="text-gray-400 text-lg text-center">
-              More details about the anime will go here...
-            </p>
-          </motion.div>
-        ) : (
-          <p className="text-gray-500 text-lg">
-            Select an anime to see its details.
-          </p>
-        )}
-      </div>
+                <motion.img
+                  src={anime.fileUrl}
+                  alt={anime.title}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Title */}
+                <div className="absolute bottom-4 left-4 z-20">
+                  <span className="text-sm font-medium text-white bg-black/70 px-2 py-1 rounded-md">
+                    {anime.title}
+                  </span>
+                </div>
+
+                {/* Delete Button (clickable) */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteAnime(anime.id);
+                  }}
+                  className="absolute bottom-4 right-4 z-30 px-3 py-1 text-sm text-white bg-red-500 hover:bg-red-600 rounded-md pointer-events-auto"
+                >
+                  Delete
+                </button>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
+      ))}
     </div>
   );
+};
+
+const variants = {
+  initial: { x: 0 },
+  exit: { x: 0, y: 0 },
+  top: { y: 20 },
+  bottom: { y: -20 },
+  left: { x: 20 },
+  right: { x: -20 },
 };
 
 export default Content;
