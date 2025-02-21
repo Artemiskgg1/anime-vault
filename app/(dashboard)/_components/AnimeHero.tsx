@@ -71,8 +71,10 @@ const AnimeHero = () => {
   }, [user]);
 
   return (
-    <div className="min-h-screen w-screen flex overflow-hidden bg-black text-white">
-      <Lists handleAddAnime={handleAddAnime} />
+    <div className=" flex flex-col items-center justify-center">
+      <div className="mb-10">
+        <Lists handleAddAnime={handleAddAnime} />
+      </div>
       <Content
         userAnimeList={userAnimeList}
         selectedAnime={selectedAnime}

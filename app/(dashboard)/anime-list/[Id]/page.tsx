@@ -20,7 +20,7 @@ const AnimeListPage: React.FC = () => {
           ANIME VAULT
         </span>
       </motion.h1>
-      <div className="bg-black text-white min-h-screen">
+      <div className="bg-black text-white ">
         <AnimeHero />
       </div>
     </div>
