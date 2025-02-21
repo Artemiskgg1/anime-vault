@@ -59,7 +59,7 @@ const Lists = ({
         <div className="relative w-full max-w-lg">
           <input
             type="text"
-            className="w-[30rem] p-4  rounded-full outline-none text-white focus:border-transparent bg-zinc-900"
+            className=" w-[20rem] md:w-[30rem] p-4 rounded-full outline-none text-white focus:border-transparent bg-zinc-900"
             placeholder=""
             value={query}
             onChange={(e) => setQuery(e.target.value)}

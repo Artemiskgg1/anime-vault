@@ -7,10 +7,10 @@ import { IconMenu2, IconX } from "@tabler/icons-react";
 
 const Nav = () => {
   const navLinks = [
-    { text: "Guideline", href: "/guideline" },
-    { text: "FAQ", href: "/faq" },
-    { text: "Contact Us", href: "/contact" },
-    { text: "Discord", href: "/discord" },
+    { text: "Guideline", href: "/" },
+    { text: "FAQ", href: "/" },
+    { text: "Contact Us", href: "/" },
+    { text: "Discord", href: "/" },
     { text: "Log In", href: "/sign-in" },
   ];
 
