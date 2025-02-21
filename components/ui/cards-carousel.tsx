@@ -165,11 +165,12 @@ export const BlurImage = ({
       src={src}
       width={width}
       height={height}
-      loading="lazy"
       decoding="async"
       blurDataURL={typeof src === "string" ? src : undefined}
       alt={alt ? alt : "Background of a beautiful view"}
       {...rest}
+      sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+      priority={true}
     />
   );
 };
